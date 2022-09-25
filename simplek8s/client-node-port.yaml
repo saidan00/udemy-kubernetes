@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-node-port
+spec:
+  type: NodePort
+  ports:
+    - port: 3050 # for other object access this object
+      targetPort: 3000 # containerPort identified inside the object client-pod
+      nodePort: 31515 # port to access container from host machine, we do not use this nodePort in Production Environment
+  selector:
+    component: web # direct traffic to object have label "component: web"
+    # we can use anything like "tier: frontend", make sure to change the label as well
